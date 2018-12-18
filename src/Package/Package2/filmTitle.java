@@ -1,6 +1,7 @@
 package Package.Package2;
 
 import java.util.*;
+import Package.Factory;
 
 
 public class filmTitle {
@@ -10,7 +11,7 @@ public class filmTitle {
         private int ID_plyty;
 	private String rezyser;
 	private String gatunek;
-	private List <Egzemplarz> film;
+	private List <Egzemplarz> films;
 
 	public String getTytul() {
 		return this.tytul;
@@ -33,7 +34,7 @@ public class filmTitle {
 	}
         
         public List<Egzemplarz> getFilms(){
-            return film;
+            return films;
         }
         
 
@@ -77,11 +78,48 @@ public class filmTitle {
 		this.gatunek = gatunek;
 	}
         
-        public filmTitle findFilmTitle(filmTitle filmtitle){
+        public Egzemplarz findFilm(Egzemplarz film){
             int idx;
-            if((idx = film.indexOf(film)) != -1){
-                film=films.get(idx);
-                return filmtitle;
+            if((idx = films.indexOf(film)) != -1){
+                film = films.get(idx);
+                return film;
+            }
+            return null;
+        }
+        
+        
+        
+        
+        @Override
+            public String toString(){
+                String filmtitledata = "\nTitle: " + getTytul();
+                filmtitledata += " Rezyser: " + getRezyser();
+                filmtitledata += " Rok wydania: " + getRok();
+                filmtitledata += " Gatunek: " + getGatunek();
+                
+                return filmtitledata;
+            }
+            
+            
+        public ArrayList<String> getDataOfFilms(){
+            ArrayList<String> dataoffilms = new ArrayList<>();
+            Iterator<Egzemplarz> filmiterator = films.iterator();
+            while(filmiterator.hasNext()){
+                Egzemplarz nextfilm = filmiterator.next();
+                dataoffilms.add(nextfilm.toString());
+            }
+            return dataoffilms;
+        }
+            
+            
+        public ArrayList<String> addFilm(String data[]){
+            Factory factory = new Factory();
+            Egzemplarz newfilm;
+            newfilm = factory.createEgzemplarz(data);
+            if(findFilm(newfilm) == null){
+                films.add(newfilm);
+                newfilm.setFilmTitle(this);
+                return getDataOfFilms();
             }
             return null;
         }

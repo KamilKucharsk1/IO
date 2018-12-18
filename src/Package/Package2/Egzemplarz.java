@@ -24,6 +24,10 @@ public class Egzemplarz {
 		// TODO - implement Egzemplarz.setRezerwacje
 		throw new UnsupportedOperationException();
 	}
+        
+        public void setFilmTitle(filmTitle filmtitle){
+            this.filmTitle = filmtitle;
+        }
 
 
 

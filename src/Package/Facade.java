@@ -4,9 +4,12 @@ import Package.Package2.*;
 
 public class Facade {
 
-	 List <filmTitle> filmTitles;
+	 List <filmTitle> filmTitles ;
 	 List <Uzytkownik> uzytkownicy;
-
+         
+         public Facade(){
+         filmTitles = new ArrayList<>();
+         }
 	/**
 	 * 
 	 * @param tytul
@@ -29,11 +32,27 @@ public class Facade {
              return correct;
          }
          
+         void setFilmTitles(List<filmTitle> filmtitles){
+             filmTitles = filmtitles;
+         }
+         
+         public filmTitle szukajFilmu(filmTitle filmtitle) {
+		// TODO - implement Facade.szukajFilmu
+                int idx;
+                if((idx = filmTitles.indexOf(filmtitle)) != -1){
+                    filmtitle = filmTitles.get(idx);
+                    return filmtitle;
+                }
+                return null;
+	}
 	public String addFilmTitle(String data[]) {
 		
                 Factory factory = new Factory();
+                
                 filmTitle newfilmtitle = factory.createFilmTitle(data);
+                
                 filmTitle result = szukajFilmu(newfilmtitle);
+          
                 if(result == null){
                     filmTitles.add(newfilmtitle);
                     String info = newfilmtitle.toString();
@@ -83,18 +102,31 @@ public class Facade {
 	 * 
 	 * @param dane
 	 */
-	public filmTitle szukajFilmu(filmTitle filmtitle) {
-		// TODO - implement Facade.szukajFilmu
-                int idx;
-                if((idx = filmTitles.indexOf(filmtitle)) != -1){
-                    filmtitle = filmTitles.get(idx);
-                    return filmtitle;
-                }
-                return null;
-	}
+        
+        public filmTitle findFilmTitle(filmTitle filmtitle){
+            int idx;
+            if((idx = filmTitles.indexOf(filmtitle)) != -1){
+                filmtitle=filmTitles.get(idx);
+                return filmtitle;
+            }
+            return null;
+        }
         
         
+        public ArrayList<String> addFilm(String data1[], String data2[]){
+            filmTitle filmtitleexist, searchpattern;
+            Factory fabryka = new Factory();
+            searchpattern = fabryka.createFilmTitle(data1);
+            if((filmtitleexist = szukajFilmu(searchpattern)) != null){
+                return filmtitleexist.addFilm(data2);
+            }
+            return null;
+        }
+	
         
+        public List<filmTitle> getFilmTitles(){
+        return filmTitles;
+        }
         public void zwrot(int id){
         
         
