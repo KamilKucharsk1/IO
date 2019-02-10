@@ -1,9 +1,6 @@
 package Package;
-import java.time.LocalDate;
 import Package.Package2.*;
-import java.util.List;
-import java.util.ArrayList;
-import Package.Facade;
+import java.util.Date;
 
 public class Factory {
 
@@ -18,7 +15,8 @@ public class Factory {
 	 * @param data
 	 */
 	public Egzemplarz createEgzemplarz(String[] data) {
-		Egzemplarz egzemplarz = null;
+		Egzemplarz egzemplarz=null;
+                
         switch (Integer.parseInt(data[0]))
         {
                 case 0:
@@ -33,9 +31,28 @@ public class Factory {
 	 * 
 	 * @param dane
 	 */
-	public Uzytkownik createUzytkownik(String[] dane) {
-		// TODO - implement Factory.createUzytkownik
-		throw new UnsupportedOperationException();
+	public Uzytkownik createUzytkownik(String data[]) {
+                
+            Uzytkownik uzytkownik = null;
+            
+            uzytkownik = new Uzytkownik();
+            uzytkownik.setID(data[0]);
+            uzytkownik.setLogin(data[1]);
+            uzytkownik.setHaslo(data[2]);
+            /*switch (Integer.parseInt(data[0]))
+            {
+                case 0:
+                    uzytkownik = new Uzytkownik();
+                    uzytkownik.setID(data[1]);
+                    break;
+                case 1:
+                    uzytkownik = new Uzytkownik();
+                    uzytkownik.setLogin(data[1]);
+                    uzytkownik.setHaslo(data[2]);
+                    
+                    break;
+            }*/
+            return uzytkownik; 
 	}
 
 	/**
@@ -43,25 +60,33 @@ public class Factory {
 	 * @param number
 	 * @param date
 	 */
-	public Rezerwacja createRezerwacja(int number, LocalDate date) {
-		// TODO - implement Factory.createRezerwacja
-		throw new UnsupportedOperationException();
+	
+        public Rezerwacja createRezerwacja(Uzytkownik uzyt, Egzemplarz egz, Date data, int numer) {
+		
+            Rezerwacja rezerwacja = new Rezerwacja();
+            rezerwacja.setUzytkownik(uzyt);
+            rezerwacja.setEgzemplarz(egz);
+            rezerwacja.setNumer_rezerwacji(numer);          
+            return rezerwacja;
+            
 	}
-        
         public filmTitle createFilmTitle(String data[]){
+            
             filmTitle filmtitle = null;
             switch (Integer.parseInt(data[0]))
             {
                 case 0:
                     filmtitle = new filmTitle();
-                    //filmtitle.setID_plyty(data[1]);
+                    filmtitle.setID_filmu(data[1]);
+                    filmtitle.setTytul(data[2]);
                     break;
                 case 1:
                     filmtitle = new filmTitle();
-                    filmtitle.setTytul(data[1]);
-                    filmtitle.setRezyser(data[2]);
-                    filmtitle.setRok(Integer.parseInt(data[3]));
-                    filmtitle.setGatunek(data[4]);
+                    filmtitle.setID_filmu(data[1]);
+                    filmtitle.setTytul(data[2]);
+                    filmtitle.setRezyser(data[3]);
+                    filmtitle.setRok(Integer.parseInt(data[4]));
+                    filmtitle.setGatunek(data[5]);
                     break;
             }
             return filmtitle;
@@ -69,14 +94,11 @@ public class Factory {
 
 
 
-
+/*
 public static void main(String t[]){
 
-    System.out.println("EEEEooo");
-    
 
-
-
+ 
     Facade ap = new Facade();
     String t1[] = {"1","Title1","Rezyser1","1999","Dramat"};
     String t2[] = {"1","Title2","Rezyser2","2015","Komedia"};
@@ -112,7 +134,7 @@ public static void main(String t[]){
     if(pom != null){
         System.out.print(pom);}
     System.out.println();
-    }
+    }*/
 
 
 
